@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+example/CMakeFiles/client.dir/rule:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f CMakeFiles/Makefile2 example/CMakeFiles/client.dir/rule
+.PHONY : example/CMakeFiles/client.dir/rule
+
+# Convenience name for target.
+client: example/CMakeFiles/client.dir/rule
+
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/client.dir/build.make example/CMakeFiles/client.dir/build
+.PHONY : client/fast
+
+# Convenience name for target.
 example/CMakeFiles/main.dir/rule:
 	cd /home/wangt/项目/chatserver/build && $(MAKE) -f CMakeFiles/Makefile2 example/CMakeFiles/main.dir/rule
 .PHONY : example/CMakeFiles/main.dir/rule
@@ -124,6 +139,33 @@ main: example/CMakeFiles/main.dir/rule
 main/fast:
 	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/main.dir/build.make example/CMakeFiles/main.dir/build
 .PHONY : main/fast
+
+__/src/Client/main.o: __/src/Client/main.cpp.o
+
+.PHONY : __/src/Client/main.o
+
+# target to build an object file
+__/src/Client/main.cpp.o:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/client.dir/build.make example/CMakeFiles/client.dir/__/src/Client/main.cpp.o
+.PHONY : __/src/Client/main.cpp.o
+
+__/src/Client/main.i: __/src/Client/main.cpp.i
+
+.PHONY : __/src/Client/main.i
+
+# target to preprocess a source file
+__/src/Client/main.cpp.i:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/client.dir/build.make example/CMakeFiles/client.dir/__/src/Client/main.cpp.i
+.PHONY : __/src/Client/main.cpp.i
+
+__/src/Client/main.s: __/src/Client/main.cpp.s
+
+.PHONY : __/src/Client/main.s
+
+# target to generate assembly for a file
+__/src/Client/main.cpp.s:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/client.dir/build.make example/CMakeFiles/client.dir/__/src/Client/main.cpp.s
+.PHONY : __/src/Client/main.cpp.s
 
 __/src/chatserver.o: __/src/chatserver.cpp.o
 
@@ -349,7 +391,11 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... client"
 	@echo "... main"
+	@echo "... __/src/Client/main.o"
+	@echo "... __/src/Client/main.i"
+	@echo "... __/src/Client/main.s"
 	@echo "... __/src/chatserver.o"
 	@echo "... __/src/chatserver.i"
 	@echo "... __/src/chatserver.s"

@@ -46,6 +46,8 @@ class chatservice
     void addGroup(const TcpConnectionPtr& conn, json& js, Timestamp time);
     //群聊天业务
     void groupChat(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    // 注销业务
+    void loginOut(const TcpConnectionPtr& conn, json& js, Timestamp time);
     private:
     // static unique_ptr<chatservice> service= make_unique<chatservice>();
     chatservice(){
@@ -58,8 +60,10 @@ class chatservice
         _msgHandlerMap.insert({CREATE_GROUP_MSG, std::bind(&chatservice::createGroup, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
         _msgHandlerMap.insert({ADD_GROUP_MSG, std::bind(&chatservice::addGroup, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
         _msgHandlerMap.insert({GROUP_CHAT_MSG, std::bind(&chatservice::groupChat, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
+        _msgHandlerMap.insert({LOGINOUT_MSG, std::bind(&chatservice::loginOut, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
     }
-
+    chatservice(const chatservice&)=delete;
+    chatservice& operator=(const chatservice&)=delete;
     mutex m_mutex;
      // 存储消息id和其对应的业务处理方法
     unordered_map<int, MsgHandler> _msgHandlerMap;

@@ -86,7 +86,7 @@ void chatservice::login(const TcpConnectionPtr &conn, json &js, Timestamp time)
     string pwd = js["pwd"];
     int id = js["id"].get<int>();
     User user = _userModel.query(id);
-    if (user.getId() == id && user.getPwd() == pwd)
+    if (user.getPwd() == pwd&&user.getName()==name)
     {
         if (user.getState() == "online")
         {
@@ -205,6 +205,20 @@ void chatservice::oneChat(const TcpConnectionPtr &conn, json &js, Timestamp time
 {
     int toid = js["toid"].get<int>();
     bool status = false;
+    int id=-1;
+    {
+        lock_guard<mutex> lock(m_mutex);
+        for (auto it = _userConnMap.begin(); it != _userConnMap.end(); ++it)
+        {
+            if (it->second == conn)
+            {
+                // 找到了对应的用户连接
+                id=it->first;
+                break;
+            }
+        }
+    }
+    js["id"]=id;
     // 查询toid用户是否在线
     {
         lock_guard<mutex> lock(m_mutex);
@@ -322,6 +336,11 @@ void chatservice::addGroup(const TcpConnectionPtr & conn, json & js, Timestamp t
     int groupid = js["groupid"].get<int>();
     string role = js["role"];
     _groupModel.addGroup(userid, groupid, role);
+    // 加入群组成功
+    json response;
+    response["msgid"] = ADD_GROUP_MSG;
+    response["errno"] = 0;
+    sendResponse(conn, response);
 }
 
 void chatservice::groupChat(const TcpConnectionPtr &conn, json &js, Timestamp time)
@@ -349,6 +368,8 @@ void chatservice::groupChat(const TcpConnectionPtr &conn, json &js, Timestamp ti
         return;
     }
     int groupid = js["groupid"].get<int>();
+    js["userid"] = userid;
+    cout<<userid;
     vector<int> useridVec = _groupModel.queryGroupUsers(userid, groupid);
     lock_guard<mutex> lock(m_mutex);
     for (int id : useridVec)
@@ -366,4 +387,21 @@ void chatservice::groupChat(const TcpConnectionPtr &conn, json &js, Timestamp ti
             _offlinemessagemodel.insert(id, js.dump());
         }
     }
+}
+
+void chatservice::loginOut(const TcpConnectionPtr &conn, json &js, Timestamp time)
+{
+    int userid = js["id"].get<int>();
+    {
+        lock_guard<mutex> lock(m_mutex);
+        auto it = _userConnMap.find(userid);
+        if (it != _userConnMap.end())
+        {
+            _userConnMap.erase(it);
+        }
+    }
+    User user;
+    user.setId(userid);
+    user.setState("offline");
+    _userModel.updateState(user);
 }

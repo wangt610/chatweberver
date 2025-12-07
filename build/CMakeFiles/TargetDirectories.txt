@@ -2,4 +2,5 @@
 /home/wangt/项目/chatserver/build/CMakeFiles/edit_cache.dir
 /home/wangt/项目/chatserver/build/example/CMakeFiles/rebuild_cache.dir
 /home/wangt/项目/chatserver/build/example/CMakeFiles/edit_cache.dir
+/home/wangt/项目/chatserver/build/example/CMakeFiles/client.dir
 /home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir

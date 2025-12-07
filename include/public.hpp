@@ -18,5 +18,4 @@ enum EnMsgType
     ADD_GROUP_MSG, // 加入群组
     GROUP_CHAT_MSG, // 群聊天
 };
-
 #endif
