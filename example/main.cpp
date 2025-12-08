@@ -1,7 +1,11 @@
 #include "chatserver.hpp"
-int main(){
+int main(int argc,char*argv[]){
+    if(argc<3){
+        std::cerr<<"Usage: "<<argv[0]<<" <ip> <port>"<<std::endl;
+        return 1;
+    }
     EventLoop loop;
-    InetAddress addr("192.168.1.242", 6000);
+    InetAddress addr(argv[1], atoi(argv[2]));
     ChatServer server(&loop, addr, "ChatServer");
     server.start();
     loop.loop();

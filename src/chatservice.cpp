@@ -104,7 +104,6 @@ void chatservice::login(const TcpConnectionPtr &conn, json &js, Timestamp time)
                 lock_guard<mutex> lock(m_mutex);
                 _userConnMap.insert({id, conn});
             }
-        }
         // 更新用户状态信息
         user.setState("online");
         _userModel.updateState(user);
@@ -160,6 +159,7 @@ void chatservice::login(const TcpConnectionPtr &conn, json &js, Timestamp time)
         sendResponse(conn, response);
         _offlinemessagemodel.remove(id);
     }
+}
     else
     {
         // 登录失败

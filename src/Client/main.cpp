@@ -501,7 +501,9 @@ int main(int argc, char *argv[])
             return 0;
         default:
             cout << "invalid choice" << endl;
-            break;
+            cin.clear(); // 清除错误标志位
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 忽略输入缓冲区中的无效字符
+           break;
         }
     }
 }
