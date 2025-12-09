@@ -78,6 +78,7 @@ void chatservice::clientCloseException(const TcpConnectionPtr &conn)
         user.setState("offline");
         _userModel.updateState(user);
     }
+    _redis.unsubscribe(user.getId());
 }
 
 void chatservice::login(const TcpConnectionPtr &conn, json &js, Timestamp time)
@@ -158,6 +159,7 @@ void chatservice::login(const TcpConnectionPtr &conn, json &js, Timestamp time)
         }
         sendResponse(conn, response);
         _offlinemessagemodel.remove(id);
+        _redis.subscribe(id);
     }
 }
     else
@@ -230,6 +232,13 @@ void chatservice::oneChat(const TcpConnectionPtr &conn, json &js, Timestamp time
             sendResponse(toConn, js);
             return;
         }
+    }
+
+    User user = _userModel.query(toid);
+    if (user.getState() == "online")
+    {
+        _redis.publish(toid, js.dump());
+        return;
     }
     // toid不在线，存储离线消息
     // 省略
@@ -369,7 +378,6 @@ void chatservice::groupChat(const TcpConnectionPtr &conn, json &js, Timestamp ti
     }
     int groupid = js["groupid"].get<int>();
     js["userid"] = userid;
-    cout<<userid;
     vector<int> useridVec = _groupModel.queryGroupUsers(userid, groupid);
     lock_guard<mutex> lock(m_mutex);
     for (int id : useridVec)
@@ -383,8 +391,16 @@ void chatservice::groupChat(const TcpConnectionPtr &conn, json &js, Timestamp ti
         }
         else
         {
+            User user=_userModel.query(id);
+             if (user.getState() == "online")
+            {
+                _redis.publish(id, js.dump());
+            }
+            else
+            {
             // 群成员不在线，存储离线消息
             _offlinemessagemodel.insert(id, js.dump());
+            }
         }
     }
 }
@@ -404,4 +420,19 @@ void chatservice::loginOut(const TcpConnectionPtr &conn, json &js, Timestamp tim
     user.setId(userid);
     user.setState("offline");
     _userModel.updateState(user);
+}
+
+void chatservice::handleRedisSubscribeMessage(int userid, string msg)
+{
+     lock_guard<mutex> lock(m_mutex);
+    auto it = _userConnMap.find(userid);
+    if (it != _userConnMap.end())
+    {
+        it->second->send(msg);
+        return;
+    }
+
+    // 存储该用户的离线消息
+    _offlinemessagemodel.insert(userid, msg);
+
 }

@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/__/src/model/UserModel.cpp.o"
   "CMakeFiles/main.dir/__/src/model/groupmodel.cpp.o"
   "CMakeFiles/main.dir/__/src/mysql/db.cpp.o"
+  "CMakeFiles/main.dir/__/src/redis/redis.cpp.o"
   "CMakeFiles/main.dir/main.cpp.o"
 )
 

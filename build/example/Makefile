@@ -356,6 +356,33 @@ __/src/mysql/db.cpp.s:
 	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/main.dir/build.make example/CMakeFiles/main.dir/__/src/mysql/db.cpp.s
 .PHONY : __/src/mysql/db.cpp.s
 
+__/src/redis/redis.o: __/src/redis/redis.cpp.o
+
+.PHONY : __/src/redis/redis.o
+
+# target to build an object file
+__/src/redis/redis.cpp.o:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/main.dir/build.make example/CMakeFiles/main.dir/__/src/redis/redis.cpp.o
+.PHONY : __/src/redis/redis.cpp.o
+
+__/src/redis/redis.i: __/src/redis/redis.cpp.i
+
+.PHONY : __/src/redis/redis.i
+
+# target to preprocess a source file
+__/src/redis/redis.cpp.i:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/main.dir/build.make example/CMakeFiles/main.dir/__/src/redis/redis.cpp.i
+.PHONY : __/src/redis/redis.cpp.i
+
+__/src/redis/redis.s: __/src/redis/redis.cpp.s
+
+.PHONY : __/src/redis/redis.s
+
+# target to generate assembly for a file
+__/src/redis/redis.cpp.s:
+	cd /home/wangt/项目/chatserver/build && $(MAKE) -f example/CMakeFiles/main.dir/build.make example/CMakeFiles/main.dir/__/src/redis/redis.cpp.s
+.PHONY : __/src/redis/redis.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -417,6 +444,9 @@ help:
 	@echo "... __/src/mysql/db.o"
 	@echo "... __/src/mysql/db.i"
 	@echo "... __/src/mysql/db.s"
+	@echo "... __/src/redis/redis.o"
+	@echo "... __/src/redis/redis.i"
+	@echo "... __/src/redis/redis.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

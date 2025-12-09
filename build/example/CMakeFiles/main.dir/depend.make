@@ -53,6 +53,8 @@ example/CMakeFiles/main.dir/__/src/model/groupmodel.cpp.o: ../src/model/groupmod
 example/CMakeFiles/main.dir/__/src/mysql/db.cpp.o: ../include/mysql/db.h
 example/CMakeFiles/main.dir/__/src/mysql/db.cpp.o: ../src/mysql/db.cpp
 
+example/CMakeFiles/main.dir/__/src/redis/redis.cpp.o: ../src/redis/redis.cpp
+
 example/CMakeFiles/main.dir/main.cpp.o: ../include/chatserver.hpp
 example/CMakeFiles/main.dir/main.cpp.o: ../include/chatservice.hpp
 example/CMakeFiles/main.dir/main.cpp.o: ../include/model/FriendModel.hpp

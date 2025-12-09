@@ -17,6 +17,8 @@
 #include"FriendModel.hpp"
 #include"Offlinemessagemodel.hpp"
 #include"groupmodel.hpp"
+
+#include"redis.hpp"
 using namespace muduo;
 using namespace muduo::net;
 using namespace std; 
@@ -48,6 +50,9 @@ class chatservice
     void groupChat(const TcpConnectionPtr& conn, json& js, Timestamp time);
     // 注销业务
     void loginOut(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    // 从redis消息队列中获取订阅的消息
+    void handleRedisSubscribeMessage(int, string);
+
     private:
     // static unique_ptr<chatservice> service= make_unique<chatservice>();
     chatservice(){
@@ -61,6 +66,12 @@ class chatservice
         _msgHandlerMap.insert({ADD_GROUP_MSG, std::bind(&chatservice::addGroup, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
         _msgHandlerMap.insert({GROUP_CHAT_MSG, std::bind(&chatservice::groupChat, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
         _msgHandlerMap.insert({LOGINOUT_MSG, std::bind(&chatservice::loginOut, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
+        // 连接redis服务器
+    if (_redis.connect())
+    {
+        // 设置上报消息的回调
+        _redis.init_notify_handler(std::bind(&chatservice::handleRedisSubscribeMessage, this, _1, _2));
+    }
     }
     chatservice(const chatservice&)=delete;
     chatservice& operator=(const chatservice&)=delete;
@@ -73,5 +84,7 @@ class chatservice
     FriendModel _friendModel;
     Offlinemessagemodel _offlinemessagemodel;
     GroupModel _groupModel;
+     // redis操作对象
+    Redis _redis;
 };
 #endif

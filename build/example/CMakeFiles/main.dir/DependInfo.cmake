@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/wangt/项目/chatserver/src/model/UserModel.cpp" "/home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir/__/src/model/UserModel.cpp.o"
   "/home/wangt/项目/chatserver/src/model/groupmodel.cpp" "/home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir/__/src/model/groupmodel.cpp.o"
   "/home/wangt/项目/chatserver/src/mysql/db.cpp" "/home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir/__/src/mysql/db.cpp.o"
+  "/home/wangt/项目/chatserver/src/redis/redis.cpp" "/home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir/__/src/redis/redis.cpp.o"
   "/home/wangt/项目/chatserver/example/main.cpp" "/home/wangt/项目/chatserver/build/example/CMakeFiles/main.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
@@ -21,6 +22,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../thirdparty"
   "../include/mysql"
   "../include/model"
+  "../include/redis"
   )
 
 # Targets to which this target links.

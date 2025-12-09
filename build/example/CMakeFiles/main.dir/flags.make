@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/wangt/项目/chatserver/include -I/home/wangt/项目/chatserver/thirdparty -I/home/wangt/项目/chatserver/include/mysql -I/home/wangt/项目/chatserver/include/model 
+CXX_INCLUDES = -I/home/wangt/项目/chatserver/include -I/home/wangt/项目/chatserver/thirdparty -I/home/wangt/项目/chatserver/include/mysql -I/home/wangt/项目/chatserver/include/model -I/home/wangt/项目/chatserver/include/redis 
 

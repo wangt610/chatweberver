@@ -53,6 +53,8 @@ example/CMakeFiles/main.dir/__/src/model/groupmodel.cpp.o
 example/CMakeFiles/main.dir/__/src/mysql/db.cpp.o
  ../include/mysql/db.h
  /home/wangt/项目/chatserver/src/mysql/db.cpp
+example/CMakeFiles/main.dir/__/src/redis/redis.cpp.o
+ /home/wangt/项目/chatserver/src/redis/redis.cpp
 example/CMakeFiles/main.dir/main.cpp.o
  ../include/chatserver.hpp
  ../include/chatservice.hpp

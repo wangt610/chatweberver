@@ -14,6 +14,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../thirdparty"
   "../include/mysql"
   "../include/model"
+  "../include/redis"
   )
 
 # Targets to which this target links.
